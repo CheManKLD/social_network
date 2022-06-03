@@ -12,7 +12,7 @@ class PostLikeSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.CharField(source='author.username', read_only=True)
-    creation_date = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S')
+    creation_date = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', read_only=True)
     likes = PostLikeSerializer(many=True, read_only=True)
 
     class Meta:
