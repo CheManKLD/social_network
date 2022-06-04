@@ -1,5 +1,4 @@
 from django.urls import path, include
-from rest_framework import routers
 
 from posts.routers import PostCustomRouter
 from posts.views import PostAPIViewSet
