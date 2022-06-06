@@ -23,7 +23,7 @@ class PostsAPITestCase(APITestCase):
         expected_data = PostSerializer([self.post_1, self.post_2], many=True).data
 
         self.assertEqual(status.HTTP_200_OK, actual_response.status_code)
-        self.assertEqual(expected_data, actual_response.data)
+        self.assertEqual(expected_data, actual_response.data['results'])
 
     def test_get_one(self):
         url = reverse('post-detail', args=(self.post_1.id,))
@@ -117,7 +117,7 @@ class PostsAPITestCase(APITestCase):
         actual_response = client.patch(url)
 
         self.assertEqual(status.HTTP_404_NOT_FOUND, actual_response.status_code)
-        self.assertEqual({'error': 'The post does not exists'}, actual_response.data)
+        self.assertEqual({'error': 'The post does not exist'}, actual_response.data)
 
     def test_unlike(self):
         url = reverse('post-unlike', args=(self.post_2.id,))
@@ -144,4 +144,4 @@ class PostsAPITestCase(APITestCase):
         actual_response = client.patch(url)
 
         self.assertEqual(status.HTTP_404_NOT_FOUND, actual_response.status_code)
-        self.assertEqual({'error': 'The post does not exists'}, actual_response.data)
+        self.assertEqual({'error': 'The post does not exist'}, actual_response.data)
