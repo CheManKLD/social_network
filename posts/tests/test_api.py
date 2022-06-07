@@ -101,15 +101,6 @@ class PostsAPITestCase(APITestCase):
         self.assertEqual(status.HTTP_200_OK, actual_response.status_code)
         self.assertEqual({'likes': 1}, actual_response.data)
 
-    def test_already_liked(self):
-        url = reverse('post-like', args=(self.post_2.id,))
-        client = APIClient()
-        client.force_authenticate(user=self.user_1)
-        actual_response = client.patch(url)
-
-        self.assertEqual(status.HTTP_409_CONFLICT, actual_response.status_code)
-        self.assertEqual({'error': 'The post already liked'}, actual_response.data)
-
     def test_like_nonexistent_post(self):
         url = reverse('post-like', args=(3,))
         client = APIClient()
@@ -117,31 +108,13 @@ class PostsAPITestCase(APITestCase):
         actual_response = client.patch(url)
 
         self.assertEqual(status.HTTP_404_NOT_FOUND, actual_response.status_code)
-        self.assertEqual({'error': 'The post does not exist'}, actual_response.data)
+        self.assertEqual({'detail': 'Not found.'}, actual_response.data)
 
     def test_unlike(self):
-        url = reverse('post-unlike', args=(self.post_2.id,))
+        url = reverse('post-like', args=(self.post_2.id,))
         client = APIClient()
         client.force_authenticate(user=self.user_1)
         actual_response = client.patch(url)
 
         self.assertEqual(status.HTTP_200_OK, actual_response.status_code)
         self.assertEqual({'likes': 0}, actual_response.data)
-
-    def test_already_unliked(self):
-        url = reverse('post-unlike', args=(self.post_1.id,))
-        client = APIClient()
-        client.force_authenticate(user=self.user_1)
-        actual_response = client.patch(url)
-
-        self.assertEqual(status.HTTP_409_CONFLICT, actual_response.status_code)
-        self.assertEqual({'error': 'The post already unliked'}, actual_response.data)
-
-    def test_unlike_nonexistent_post(self):
-        url = reverse('post-unlike', args=(3,))
-        client = APIClient()
-        client.force_authenticate(user=self.user_1)
-        actual_response = client.patch(url)
-
-        self.assertEqual(status.HTTP_404_NOT_FOUND, actual_response.status_code)
-        self.assertEqual({'error': 'The post does not exist'}, actual_response.data)

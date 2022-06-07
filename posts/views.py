@@ -1,5 +1,6 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -27,25 +28,7 @@ class PostAPIViewSet(viewsets.ModelViewSet):
 
     @action(methods=['patch'], detail=True, permission_classes=[IsAuthenticated], name='{basename}-like')
     def like(self, request, pk=None):
-        try:
-            post = self.get_object()
-        except:
-            return Response(data={'error': 'The post does not exist'}, status=status.HTTP_404_NOT_FOUND)
-
-        post_likes = post.likes.all()
-
-        if post_likes and self.request.user in post_likes:
-            return Response(data={'error': 'The post already liked'}, status=status.HTTP_409_CONFLICT)
-
-        post.likes.add(self.request.user)
-        return Response({'likes': len(post_likes) + 1})
-
-    @action(methods=['patch'], detail=True, permission_classes=[IsAuthenticated], name='{basename}-unlike')
-    def unlike(self, request, pk=None):
-        try:
-            post = self.get_object()
-        except:
-            return Response(data={'error': 'The post does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        post = get_object_or_404(Post, pk=pk)
 
         post_likes = post.likes.all()
 
@@ -53,4 +36,5 @@ class PostAPIViewSet(viewsets.ModelViewSet):
             post.likes.remove(self.request.user)
             return Response({'likes': len(post_likes) - 1})
 
-        return Response(data={'error': 'The post already unliked'}, status=status.HTTP_409_CONFLICT)
+        post.likes.add(self.request.user)
+        return Response({'likes': len(post_likes) + 1})
