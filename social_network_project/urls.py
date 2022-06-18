@@ -28,5 +28,5 @@ urlpatterns = [
     # path('api/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # path('api/jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
-    path('__debug__/', include('debug_toolbar.urls')),
+    # path('__debug__/', include('debug_toolbar.urls')),
 ]

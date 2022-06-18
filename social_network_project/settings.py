@@ -43,15 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'debug_toolbar',
+    'posts.apps.PostsConfig',
 
     'rest_framework',
-
     'rest_framework_simplejwt',
 
-    'django_extensions',
-
-    'posts.apps.PostsConfig',
+    # 'debug_toolbar',
+    # 'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -63,8 +61,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    'debug_toolbar_force.middleware.ForceDebugToolbarMiddleware',
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # 'debug_toolbar_force.middleware.ForceDebugToolbarMiddleware',
 ]
 
 INTERNAL_IPS = [
