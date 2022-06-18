@@ -27,13 +27,16 @@
 После клонирования проекта для корректной работы необходимо создать
 файлы `.env` и `.env.db` в корневой папке следующего содержания:
 1. `.env`
+
 ```
 DEBUG=1
 SECRET_KEY=СЮДА_ВСТАВИТЬ_ВАШ_СЕКРЕТНЫЙ_DJANGO_КЛЮЧ
 ALLOWED_HOSTS=localhost,127.0.0.1,[::1]
 DATABASE_URL=psql://social_network_user:password@db:5432/social_network_db
 ```
+
 2. `.env.db`
+
 ```
 POSTGRES_USER=social_network_user
 POSTGRES_PASSWORD=password
