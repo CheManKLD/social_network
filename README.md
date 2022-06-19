@@ -4,7 +4,7 @@
 ## Технологии:
 ### Djando, Django REST frameworks, PostgreSQL, Docker (docker-compose)
 
-##Требования:
+## Требования:
 <p>Реализовать REST API для социальной сети.</p>
 <p>Базовые модели:</p>
 <ul>
